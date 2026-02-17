@@ -41,30 +41,28 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="inline-flex items-center gap-2 bg-ruby/20 border border-ruby/30 rounded-full px-4 py-2 mb-6 backdrop-blur-sm"
-          >
-            <span className="w-2 h-2 bg-ruby rounded-full animate-pulse" />
-            <span className="text-xs lg:text-sm text-cream uppercase tracking-widest font-medium">
-              {t('subtitle')}
-            </span>
-          </motion.div>
 
           {/* Title */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-cream mb-4 leading-tight"
+            className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-cream mb-6 leading-tight"
           >
             {t('title')}
             <br />
             <span className="text-gold">{t('titleHighlight')}</span>
           </motion.h1>
+
+          {/* Subline Premium */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-xs md:text-sm uppercase tracking-[0.35em] text-cream/60 mb-8"
+          >
+            LIVE MUSIC • CASCAIS
+          </motion.p>
 
           {/* Description */}
           <motion.p
