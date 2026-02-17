@@ -1,0 +1,55 @@
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { Playfair_Display, Inter } from "next/font/google";
+import { locales } from "@/i18n/request";
+import PreloaderGate from "@/components/PreloaderGate"; // ✅ IMPORTANTE
+import "./globals.css";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
+  children,
+  params: { locale },
+}: {
+  children: React.ReactNode;
+  params: { locale: string };
+}) {
+  if (!locales.includes(locale as any)) notFound();
+
+  const messages = await getMessages({ locale });
+
+  return (
+    <html lang={locale} className={`${playfair.variable} ${inter.variable}`}>
+      <head>
+        <link rel="icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
+      </head>
+
+      <body className="font-sans antialiased bg-anthracite text-cream">
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          
+          {/* ✅ PRELOADER CONTROLANDO O CONTEÚDO */}
+          <PreloaderGate delayNormalMs={2450}>
+            {children}
+          </PreloaderGate>
+
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
