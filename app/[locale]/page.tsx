@@ -9,7 +9,7 @@ import Testimonials from '@/components/Testimonials';
 import OpeningHours from '@/components/OpeningHours';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
-import Preloader from '@/components/Preloader';
+
 
 type Props = {
   params: { locale: string };
@@ -47,7 +47,6 @@ export default function HomePage({ params: { locale } }: Props) {
 
   return (
     <>
-      <Preloader />
       <Header />
       <main>
         <Hero />

@@ -22,12 +22,10 @@ export default function Testimonials() {
 
   return (
     <section ref={ref} className="py-24 lg:py-32 bg-dark-light relative overflow-hidden">
-      {/* Decorative elements */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-accent-orange/5 rounded-full blur-3xl -translate-y-1/2" />
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-red/5 rounded-full blur-3xl -translate-y-1/2" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -45,7 +43,6 @@ export default function Testimonials() {
             {t('title')}
           </h2>
 
-          {/* Google Reviews Badge */}
           <div className="flex items-center justify-center gap-2 mb-8">
             <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (
@@ -67,7 +64,6 @@ export default function Testimonials() {
           </a>
         </motion.div>
 
-        {/* Grid */}
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
@@ -82,11 +78,12 @@ export default function Testimonials() {
                   <Star key={i} className="w-4 h-4 fill-accent-yellow text-accent-yellow" />
                 ))}
               </div>
-              
+
               <Quote className="w-8 h-8 text-accent-orange/30 mb-4" />
-              
+
+              {/* ✅ CORRIGIDO AQUI */}
               <p className="text-light/80 leading-relaxed mb-6 italic">
-                "{testimonial.text}"
+                &ldquo;{testimonial.text}&rdquo;
               </p>
 
               <div className="flex items-center gap-3">

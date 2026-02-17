@@ -1,5 +1,4 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { useTranslations } from 'next-intl';
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -9,6 +8,22 @@ import Image from 'next/image';
 
 type Props = {
   params: { locale: string };
+};
+
+type MenuItem = {
+  name: string;
+  desc?: string;
+};
+
+type MenuSection = {
+  title: string;
+  items: MenuItem[];
+};
+
+type MenuSectionsByLocale = {
+  pt: MenuSection[];
+  en: MenuSection[];
+  fr: MenuSection[];
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
@@ -21,8 +36,8 @@ export async function generateMetadata({ params: { locale } }: Props): Promise<M
       canonical: `https://latinagrill.pt/${locale}/menu`,
       languages: {
         'pt-PT': 'https://latinagrill.pt/pt/menu',
-        'en': 'https://latinagrill.pt/en/menu',
-        'fr': 'https://latinagrill.pt/fr/menu',
+        en: 'https://latinagrill.pt/en/menu',
+        fr: 'https://latinagrill.pt/fr/menu',
       },
     },
   };
@@ -31,7 +46,7 @@ export async function generateMetadata({ params: { locale } }: Props): Promise<M
 function MenuPage({ params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
 
-  const menuSections = {
+  const menuSections: MenuSectionsByLocale = {
     pt: [
       {
         title: 'Entradas Premium',
@@ -124,13 +139,12 @@ function MenuPage({ params: { locale } }: Props) {
     ],
   };
 
-  const sections = menuSections[locale as keyof typeof menuSections] || menuSections.pt;
+  const sections = menuSections[locale as keyof MenuSectionsByLocale] || menuSections.pt;
 
   return (
     <>
       <Header />
       <main className="min-h-screen pt-32 pb-24 bg-anthracite">
-        {/* Hero Section */}
         <div className="relative h-[40vh] mb-16">
           <Image
             src="https://cdn.website.dish.co/media/63/00/5189658/Latina-Grill-Steakhouse-252307627-293654599429443-5315061003337340379-n-jpg.jpg"
@@ -142,7 +156,7 @@ function MenuPage({ params: { locale } }: Props) {
           <div className="absolute inset-0 bg-gradient-to-b from-anthracite/80 via-anthracite/60 to-anthracite" />
           <div className="container mx-auto px-4 lg:px-8 h-full flex items-center justify-center relative z-10">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-cream text-center">
-              {locale === 'pt' ? 'Menu' : locale === 'en' ? 'Menu' : 'Menu'}
+              Menu
             </h1>
           </div>
         </div>
@@ -170,7 +184,6 @@ function MenuPage({ params: { locale } }: Props) {
             </div>
           ))}
 
-          {/* CTA */}
           <div className="text-center mt-16">
             <Link
               href={`/${locale}/reservations`}
